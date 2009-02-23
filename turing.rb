@@ -107,9 +107,10 @@ def gen_TM num_states
 end
 
 tm = gen_TM 8
-tape = (1..160).collect { (0..1).choice }
+p tm
+tape = (1..40).collect { (0..1).choice }
 tm.run tape do |count|
-  if count > 160
+  if count > 40
     puts "(and so on)"
     break
   end
