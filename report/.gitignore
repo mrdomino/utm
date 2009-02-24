@@ -1,10 +1,5 @@
 *.aux
 *.log
-*.out
 *.bbl
 *.blg
-*.ps
-*.dvi
-*.bib-stamp
 report.pdf
-report.pdf.mk
