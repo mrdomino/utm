@@ -98,19 +98,21 @@ def gen_TM num_states
   table = {}
   states.each do |i|
     alphabet.each do |read|
-      table[[i,read]] = [states_with_halt.choice, alphabet.choice, DIRECTIONS.choice]
+      table[[i,read]] = [states_with_halt.choice, alphabet.choice, DIRECTIONS[(0..1).choice]]
     end
   end
   init = states.min
   halt = states_with_halt.min
-  return TM.new alphabet,states,init,halt,table
+  return (TM.new alphabet,states,init,halt,table)
 end
+
+
 
 tm = gen_TM 8
 p tm
 tape = (1..40).collect { (0..1).choice }
 tm.run tape do |count|
-  if count > 40
+  if count > 100
     puts "(and so on)"
     break
   end
