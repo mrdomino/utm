@@ -9,6 +9,7 @@ report.pdf: $(TEXSRCS) report.tex
 	bibtex report
 	pdflatex report
 	pdflatex report
+	pdflatex report
 
 clean:
 	@rm -vf *.aux *.log *.bbl
