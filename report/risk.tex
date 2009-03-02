@@ -1,10 +1,3 @@
-\subsubsection{Project Risks}
-\begin{itemize}
-\item The fitness evaluation heuristics doesnt lead to universality
-\item Convergence is very slow
-\end{itemize}
-
-\subsubsection{Risk Analysis and Mitigation}
 Our hypothesis is that applying our selected fitness evaluation methods to a set of Turing Machines will lead a genetic algorithm optimization to an optimum that is a set of UTMs. It is possible, using a single fitness evaluation, that we could get no UTMs. In that case, the data will have shown that our particular fitness evaluation does not lead to universality. This however would not be a wholesale disproval of the research method. To deal with this possibility, we will employee a set of fitness evaluation methods and compare their results. This way, a slightly broader dataset can be generated. Though both methods still can not conclusively disprove the research method, together they provide a much stronger conclusion in either direction. 
     
 At this point, the amount of time necessary for the optimizations to run is unknown. We assume that the amount of time it takes to evaluate a single member of the candidate population is trivial. If this does not turn out to be the case, then it is possible that the optimization could benefit greatly from the usage of parallel evaluation of population members. We have identified an implementation of the Message Passing Interface (MPI) for Ruby which could be used to implement such a parallel scheme. By March 8th, we will have evaluated the computational requirements for fitness evaluation and if necessary can begin work on implementing a parallel optimization algorithm.
