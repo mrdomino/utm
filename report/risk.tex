@@ -1,6 +1,12 @@
-Foreseeable risks:
-
+\subsubsection{Project Risks}
 \begin{itemize}
-\item Applying the ``complexity'' heuristic doesn't lead to universality
+\item The fitness evaluation heuristics doesnt lead to universality
 \item Convergence is very slow
 \end{itemize}
+
+\subsubsection{Risk Analysis and Mitigation}
+Our hypothosis is that applying our selected fitness evaluation methods to a set of Turing Machines will lead a genetic algorithm optimization to an optimimum that is a set of UTMs. It is possible, using a single fitness evaluation, that we could get no UTMs. In that case, the data will have shown that our particular fitness evaluation does not lead to universality. This however would not be a wholesale disproval of the reserach method. To deal with this possiblity, we will employee a set of fitness evaluation methods and compare their results. This way, a slightly broader dataset can be gereated. Though both methods still can not conclusively disprove the reserach method, togther they provide a much stronger conclusion in either direction. 
+    
+At this point, the amount of time necessary for the optimizations to run is unknown. We assume that the amount of time it takes to evaluate a single member of the candiate population is trivial. If this does not turn out to be the case, then it is possible that the optimization could benefit greatly from the usage of parallel evaluation of population members. We have identified an implementation of the Message Passing Inteface (MPI) for Ruby which could be used to implement such a parallel scheeme. By March 8th, we will have evaluated the computational requirments for fitness evaluation and if necessary can begin work on implementing a parallel optimization algorithm.
+
+Even if the compuational requirments for evaluation of a candiate Turing Machine are modest, the optmization algorithm could move toward an optimum slowly. Genetic Algorithms are known for their slow convergence rates. We have provided ample time to allow for this potential bottleneck, by starting a test of our optimizations on March 3rd. That will provide plenty of time for a slow optimziation to run, leaving time to analyze the results. 
