@@ -13,9 +13,7 @@ algorithm---essentially, a Turing Machine genome.
 
 \subsection{Turing Machine Scoring} 
 
-We are searching for Universal Turing Machines, but without any prior
-knowledge of what a Universal Turing Machine looks like. We must
-engineer a way of scoring arbitrary Turing Machines such that those
+We must engineer a way of scoring arbitrary Turing Machines such that those
 closer to ``universality'' score higher than those farther away.
 
 We can make the following conjecture: a Turing Machine that is closer to
@@ -24,6 +22,8 @@ than one that is farther from being universal. Then complexity
 approximates universality, and we should give more weight to Turing
 Machines that produce complicated-looking output, regardless of what it
 is.
+
+Alternatively, we can make use of the definition of a UTM given by David Barker-Plummer \cite{SEP_turing}, where we feed the encoding of a randomly generated Turing Machine along with an randomly generated input to a candidate Turing Machine in the population. We score then score the candidate Turing Machine on how closely its output approximates the output of the randomly generated one.
 
 \subsection{Genetic Algorithm Selection}
 \subsection{Results Visualization}
