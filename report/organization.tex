@@ -1,0 +1,13 @@
+\subsection{Project division}
+
+A first priority will be to define a standard format for representing a turing machine; this format will be used pervasively in the entire application. From there, several independent modules fall naturally out of the problem specification:
+
+\begin{itemize}
+\item Execution: Given a TM and its input, returning the final state of the tape.
+\item Evaluation: Determining a heuristic for universality, ranking TMs, and producing stochastic test data.
+\item Breeding and mutating: The GA's selection and combination processes.
+\end{itemize}
+
+It is our expectation that, since these modules have well-defined interfaces and can be tested independently of each other, we will be able to work on them individually or in pairs.
+
+\subsection{Communication tools}
