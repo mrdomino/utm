@@ -4,7 +4,12 @@ require "turing"
 
 class Ai4r::GeneticAlgorithm::Chromosome
   
-  
+  # Initializes an individual solution (chromosome) for the initial 
+  # population. Usually the chromosome is generated randomly, but you can 
+  # use some problem domain knowledge, to generate better initial solutions.  
+  def self.seed
+  end
+  #fitness, reproduce, and mutate  
   
   # The fitness function quantifies the optimality of a solution 
   # (that is, a chromosome) in a genetic algorithm so that that particular 
@@ -38,12 +43,7 @@ class Ai4r::GeneticAlgorithm::Chromosome
     #Edge Recombination
   end
   
-  # Initializes an individual solution (chromosome) for the initial 
-  # population. Usually the chromosome is generated randomly, but you can 
-  # use some problem domain knowledge, to generate better initial solutions.  
-  def self.seed
-  end
-  #fitness, reproduce, and mutate
+
 
 #Ai4r::GeneticAlgorithm::Chromosome.set_cost_matrix(data_set)
 
