@@ -4,6 +4,8 @@ require "turing"
 
 class Ai4r::GeneticAlgorithm::Chromosome
   
+  
+  
   # The fitness function quantifies the optimality of a solution 
   # (that is, a chromosome) in a genetic algorithm so that that particular 
   # chromosome may be ranked against all the other chromosomes. 
@@ -12,6 +14,8 @@ class Ai4r::GeneticAlgorithm::Chromosome
   # are allowed to breed and mix their datasets by any of several techniques, 
   # producing a new generation that will (hopefully) be even better.
   def fitness
+    #pass in encoding of scoring chromome to this chromosome
+    #pass in scoring input, and compare output of this chromosme to the scoring chromosome
   end
   
   
@@ -31,6 +35,7 @@ class Ai4r::GeneticAlgorithm::Chromosome
   # chromosomes from one generation to the next. Takes two parents and 
   # returns a single child
   def self.reproduce(a, b)
+    #Edge Recombination
   end
   
   # Initializes an individual solution (chromosome) for the initial 
