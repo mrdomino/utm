@@ -1,7 +1,7 @@
 ## Rails frontend
 - Interactively play with a TM
 - Plot the fitness over time
-- Json web service (use CouchDB?)
+- JSON web service (use CouchDB?)
 - Submit an organism
 
 ## Database
