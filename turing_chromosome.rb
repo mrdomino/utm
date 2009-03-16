@@ -43,6 +43,8 @@ class Ai4r::GeneticAlgorithm::Chromosome
     #Edge Recombination
   end
 
+end
+
 
 #Ai4r::GeneticAlgorithm::Chromosome.set_cost_matrix(data_set)
 
