@@ -1,0 +1,25 @@
+## Rails frontend
+- Interactively play with a TM
+- Plot the fitness over time
+- JSON web service (use CouchDB?)
+- Submit an organism
+
+## Database
+- Genome
+- Fitness score
+
+## GA
+- Chromosome specification
+- Selection/crossover/mutation techniques and probabilities
+- Prune unreachable states
+- Subgraph isomorphism problem
+- - Comparing to a known UTM
+- - Detecting identical organisms
+- A connected set of states should be actual
+- Select for adaptable - change the fitness function, or use some
+  convex combination of fitness functions.
+- Catastrophe
+
+## Fitness functions
+- Ability to imitate a benchmark TM (that changes periodically)
+- Complexity of output
