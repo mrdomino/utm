@@ -2,12 +2,39 @@ require "rubygems"
 require "ai4r/genetic_algorithm/genetic_algorithm"
 require "turing"
 
+class Integer
+  def to_b
+    if zero? then [0] else __to_b end
+  end
+
+  def __to_b
+    if zero? then [] else (self >> 1).__to_b + [self & 1] end
+  end
+end
+
+NUM_STATES = 8
+BITS = 16
+STATES = (1..NUM_STATES)
+ALPHABET = (0..1)
+
 class Ai4r::GeneticAlgorithm::Chromosome
 
   # Initializes an individual solution (chromosome) for the initial
   # population. Usually the chromosome is generated randomly, but you can
   # use some problem domain knowledge, to generate better initial solutions.
   def self.seed
+    result = ""
+    STATES.each do |st|
+      ALPHABET.each do |let|
+        # Next state
+        result << (1..NUM_STATES).choice.to_b.join.rjust BITS,'0'
+        # Letter to write
+        result << ALPHABET.choice.to_s
+        # Move to the right?
+        result << (0..1).choice.to_s
+      end
+    end
+    return result
   end
   #fitness, reproduce, and mutate
 
