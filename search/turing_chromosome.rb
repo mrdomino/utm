@@ -27,14 +27,14 @@ class Ai4r::GeneticAlgorithm::Chromosome
     STATES.each do |st|
       ALPHABET.each do |let|
         # Next state
-        result << (1..NUM_STATES).choice.to_b.join.rjust BITS,'0'
+        result << (1..NUM_STATES).choice.to_b.join.rjust(BITS,'0')
         # Letter to write
         result << ALPHABET.choice.to_s
         # Move to the right?
         result << (0..1).choice.to_s
       end
     end
-    return result
+    return new result
   end
   #fitness, reproduce, and mutate
 

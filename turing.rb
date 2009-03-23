@@ -106,14 +106,14 @@ def gen_TM num_states
   return (TM.new alphabet,states,init,halt,table)
 end
 
-
-
-tm = gen_TM 8
-p tm
-tape = (1..40).collect { (0..1).choice }
-tm.run tape do |count|
-  if count > 100
-    puts "(and so on)"
-    break
+if $0 == __FILE__
+  tm = gen_TM 8
+  p tm
+  tape = (1..40).collect { (0..1).choice }
+  tm.run tape do |count|
+    if count > 100
+      puts "(and so on)"
+      break
+    end
   end
 end
