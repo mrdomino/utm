@@ -62,6 +62,25 @@ class TM
     @table = table
   end
 
+  def self.decode states,bits,string
+    gene_length = bits+2
+    table = {}
+    alphabet = (0..1)
+    states.each do |i|
+      alphabet.each do |read|
+        index = gene_length * (2*(i-1) + read)
+        gene = string[index,gene_length]
+        next_state = eval("0b" + gene[0,bits])
+        letter = gene[bits]
+        dir = gene[bits+1]
+        table[[i,read]] = [next_state, letter, dir]
+      end
+    end
+    init = 1
+    halt = 0
+    return (TM.new alphabet,states,init,halt,table)
+  end
+
   def run input
     tape = Tape.new @alphabet,input
     state = @init
