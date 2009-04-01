@@ -59,7 +59,6 @@ class Ai4r::GeneticAlgorithm::Chromosome
     return @fitness
   end
 
-
   # mutation is a function used to maintain genetic diversity from one
   # generation of a population of chromosomes to the next. It is analogous 
   # to biological mutation.
@@ -69,6 +68,12 @@ class Ai4r::GeneticAlgorithm::Chromosome
   # randomly. In other words, the probability of mutation needs to be accounted
   # for inside the method
   def self.mutate(chromosome)
+    chromosome.data.length.times do |i|
+      if rand > 0.98 then
+        chromosome.data[i] = (1 - chromosome.data[i..i].to_i).to_s
+      end
+    end
+    chromosome.whack_fitness!
   end
 
 
@@ -82,6 +87,11 @@ class Ai4r::GeneticAlgorithm::Chromosome
     guy = a.data[0..i] + b.data[i..j] + b.data[j..-1]
     return new guy
   end
+
+  def whack_fitness!
+    @fitness = nil
+  end
+
 
 end
 
