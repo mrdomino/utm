@@ -49,8 +49,8 @@ class Ai4r::GeneticAlgorithm::Chromosome
   def fitness
     if @fitness.nil?
       tm = TM.decode STATES,BITS,@data
-      tm.run(gen_tape 1) do |count,tape|
-        if count > 500
+      tm.run(gen_tape 1) do |count,tape,halt|
+        if count > 500 or halt
           @fitness = Zlib::Deflate.deflate(tape.to_s).length
           break
         end
@@ -77,7 +77,10 @@ class Ai4r::GeneticAlgorithm::Chromosome
   # returns a single child
   def self.reproduce(a, b)
     #Edge Recombination
-    a
+    i = (0..(NUM_STATES*2)).choice * (BITS+2)
+    j = (0..(NUM_STATES*2)).choice * (BITS+2)
+    guy = a.data[0..i] + b.data[i..j] + b.data[j..-1]
+    return new guy
   end
 
 end

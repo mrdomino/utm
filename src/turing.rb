@@ -75,6 +75,7 @@ class TM
         index = gene_length * (2*(i-1) + read)
         gene = string[index,gene_length]
         next_state = eval("0b" + gene[0,bits])
+        next_state = states.count if next_state+1 > states.count
         letter = gene[bits..bits].to_i
         dir = DIRECTIONS[gene[bits+1..bits+1].to_i]
         table[[i,read]] = [next_state, letter, dir]
@@ -97,10 +98,10 @@ class TM
       tape.send direction
 
       counter += 1
-      yield counter,tape if block_given?
+      yield counter,tape,false if block_given?
 
       if state == @halt
-        puts "halt"
+        yield counter,tape,true if block_given?
         break
       end
     end
