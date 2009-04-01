@@ -96,6 +96,20 @@ class Ai4r::GeneticAlgorithm::Chromosome
 
 end
 
+# monkeypatched to take a block
+class Ai4r::GeneticAlgorithm::GeneticSearch
+  def run
+    generate_initial_population                    #Generate initial population 
+    @max_generation.times do |i|
+      yield(best_chromosome,i) if block_given?
+      selected_to_breed = selection                #Evaluates current population 
+      offsprings = reproduction selected_to_breed  #Generate the population for this new generation
+      replace_worst_ranked offsprings
+    end
+    return best_chromosome
+  end
+end
+
 
 #Ai4r::GeneticAlgorithm::Chromosome.set_cost_matrix(data_set)
 
