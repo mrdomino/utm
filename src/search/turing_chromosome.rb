@@ -46,8 +46,11 @@ class Ai4r::GeneticAlgorithm::Chromosome
   # are allowed to breed and mix their datasets by any of several techniques,
   # producing a new generation that will (hopefully) be even better.
   def fitness
-    #pass in encoding of scoring chromome to this chromosome
-    #pass in scoring input, and compare output of this chromosme to the scoring chromosome
+    tm = TM.decode STATES,BITS,@data
+    tape = gen_tape
+    tm.run tape do |count,tape|
+      # TODO
+    end
   end
 
 

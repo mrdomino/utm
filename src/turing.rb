@@ -92,10 +92,8 @@ class TM
       state = next_state
       tape.send direction
 
-      puts tape
-
       counter += 1
-      yield counter if block_given?
+      yield counter,tape if block_given?
 
       if state == @halt
         puts "halt"
@@ -125,11 +123,16 @@ def gen_TM num_states
   return (TM.new alphabet,states,init,halt,table)
 end
 
+def gen_tape size
+  (1..size).collect { (0..1).choice }
+end
+
 if $0 == __FILE__
   tm = gen_TM 8
   p tm
-  tape = (1..40).collect { (0..1).choice }
-  tm.run tape do |count|
+  tape = gen_tape 40
+  tm.run tape do |count,tape|
+    puts tape
     if count > 100
       puts "(and so on)"
       break
