@@ -1,6 +1,7 @@
 require "rubygems"
 require "ai4r/genetic_algorithm/genetic_algorithm"
 require "turing"
+require "zlib"
 
 class Integer
   def to_b
@@ -46,11 +47,16 @@ class Ai4r::GeneticAlgorithm::Chromosome
   # are allowed to breed and mix their datasets by any of several techniques,
   # producing a new generation that will (hopefully) be even better.
   def fitness
-    tm = TM.decode STATES,BITS,@data
-    tape = gen_tape
-    tm.run tape do |count,tape|
-      # TODO
+    if @fitness.nil?
+      tm = TM.decode STATES,BITS,@data
+      tm.run(gen_tape 1) do |count,tape|
+        if count > 500
+          @fitness = Zlib::Deflate.deflate(tape.to_s).length
+          break
+        end
+      end
     end
+    return @fitness
   end
 
 
@@ -71,6 +77,7 @@ class Ai4r::GeneticAlgorithm::Chromosome
   # returns a single child
   def self.reproduce(a, b)
     #Edge Recombination
+    a
   end
 
 end
@@ -82,4 +89,10 @@ puts "Beginning genetic search, please wait... "
 #800 population size, 100 generations
 search = Ai4r::GeneticAlgorithm::GeneticSearch.new(800, 100)
 result = search.run
-puts "Result cost: #{result.fitness}"
+
+tm = TM.decode STATES,BITS,result.data
+tm.run(gen_tape 1) do |count,tape|
+  puts tape
+  break if count > 40
+end
+puts "Result fitness: #{result.fitness}"
