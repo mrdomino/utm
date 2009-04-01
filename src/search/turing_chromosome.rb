@@ -68,12 +68,13 @@ class Ai4r::GeneticAlgorithm::Chromosome
   # randomly. In other words, the probability of mutation needs to be accounted
   # for inside the method
   def self.mutate(chromosome)
-    chromosome.data.length.times do |i|
-      if rand > 0.98 then
-        chromosome.data[i] = (1 - chromosome.data[i..i].to_i).to_s
-      end
+    if chromosome.normalized_fitness && rand < ((1 - chromosome.normalized_fitness) * 0.3)
+      data = chromosome.data
+      index = rand(data.length-1)
+      data[index], data[index+1] = data[index+1], data[index]
+      chromosome.data = data
+      @fitness = nil
     end
-    chromosome.whack_fitness!
   end
 
 
@@ -88,11 +89,6 @@ class Ai4r::GeneticAlgorithm::Chromosome
     guy = a.data[0..i] + b.data[i+1..j] + a.data[j+1..-1]
     return new guy
   end
-
-  def whack_fitness!
-    @fitness = nil
-  end
-
 
 end
 
