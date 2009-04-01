@@ -84,7 +84,7 @@ class Ai4r::GeneticAlgorithm::Chromosome
     #Edge Recombination
     i = (0..(NUM_STATES*2)).choice * (BITS+2)
     j = (0..(NUM_STATES*2)).choice * (BITS+2)
-    guy = a.data[0..i] + b.data[i..j] + b.data[j..-1]
+    guy = a.data[0..i] + b.data[i..j] + a.data[j..-1]
     return new guy
   end
 
