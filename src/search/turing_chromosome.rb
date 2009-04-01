@@ -50,7 +50,7 @@ class Ai4r::GeneticAlgorithm::Chromosome
     if @fitness.nil?
       tm = TM.decode STATES,BITS,@data
       tm.run(gen_tape 1) do |count,tape,halt|
-        if count > 500 or halt
+        if count > 5000 or halt
           @fitness = Zlib::Deflate.deflate(tape.to_s).length
           break
         end
