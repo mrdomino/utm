@@ -13,7 +13,7 @@ class Integer
   end
 end
 
-NUM_STATES = 8
+NUM_STATES = 32
 BITS = 16
 STATES = (1..NUM_STATES)
 ALPHABET = (0..1)
@@ -47,16 +47,12 @@ class Ai4r::GeneticAlgorithm::Chromosome
   # are allowed to breed and mix their datasets by any of several techniques,
   # producing a new generation that will (hopefully) be even better.
   def fitness
-    if @fitness.nil?
-      tm = TM.decode STATES,BITS,@data
-      tm.run(gen_tape 1) do |count,tape,halt|
-        if count > 5000 or halt
-          @fitness = Zlib::Deflate.deflate(tape.to_s).length
-          break
-        end
+    tm = TM.decode STATES,BITS,@data
+    tm.run(gen_tape 40) do |count,tape,halt|
+      if count > 5000 or halt
+        return Zlib::Deflate.deflate(tape.to_s).length
       end
     end
-    return @fitness
   end
 
   # mutation is a function used to maintain genetic diversity from one
