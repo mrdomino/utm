@@ -82,9 +82,10 @@ class Ai4r::GeneticAlgorithm::Chromosome
   # returns a single child
   def self.reproduce(a, b)
     #Edge Recombination
-    i = (0..(NUM_STATES*2)).choice * (BITS+2)
-    j = (0..(NUM_STATES*2)).choice * (BITS+2)
-    guy = a.data[0..i] + b.data[i..j] + a.data[j..-1]
+    i = (0..(NUM_STATES*2-1)).choice * (BITS+2)
+    j = (0..(NUM_STATES*2-1)).choice * (BITS+2)
+    i,j = [i,j].sort
+    guy = a.data[0..i] + b.data[i+1..j] + a.data[j+1..-1]
     return new guy
   end
 
@@ -101,7 +102,10 @@ end
 puts "Beginning genetic search, please wait... "
 #800 population size, 100 generations
 search = Ai4r::GeneticAlgorithm::GeneticSearch.new(800, 100)
-result = search.run
+result = search.run do |best,gen|
+  puts "Generation #{gen}"
+  p best
+end
 
 tm = TM.decode STATES,BITS,result.data
 tm.run(gen_tape 1) do |count,tape|
