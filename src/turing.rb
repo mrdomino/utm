@@ -76,7 +76,7 @@ class TM
         gene = string[index,gene_length]
         next_state = eval("0b" + gene[0,bits])
         letter = gene[bits]
-        dir = gene[bits+1]
+        dir = DIRECTIONS[gene[bits+1..bits+1].to_i]
         table[[i,read]] = [next_state, letter, dir]
       end
     end
