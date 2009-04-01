@@ -17,6 +17,10 @@ class Tape
     t.times { right! }
   end
 
+  def length
+    return @left.length + @right.length
+  end
+
   def read
     if @pointer < 0
       @left[~@pointer]
