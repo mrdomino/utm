@@ -34,7 +34,7 @@ module GA
       selected = selection(@count/2)
       offspring = (1..@count/2).collect do
         x = @chromosome_class.reproduce(selected.choice,selected.choice)
-        raise "reproduce didn't work" unless x.class.equal? @chromosome_class
+        raise "reproduce didn't work" unless x.instance_of? @chromosome_class
         x.mutate!
         x
       end
@@ -43,7 +43,7 @@ module GA
 
     def selection count
       (1..count).collect do
-        (1..@selection_n).collect {@population.choice}.sort[-1]
+        (1..@selection_n).collect {@population.choice}.max
       end
     end
 
@@ -60,7 +60,7 @@ module GA
       raise NotImplementedError
     end
 
-    def initialize
+    def initialize(data = nil)
       raise NotImplementedError
     end
 
