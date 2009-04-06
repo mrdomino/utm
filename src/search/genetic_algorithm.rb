@@ -52,7 +52,9 @@ module GA
 
   class AbstractChromosome
 
-    # Performs mutation, with some probability.
+    # Performs mutation. This gets called for every offspring in the
+    # population, so it should probably use some randomness in deciding
+    # whether to act.
     def mutate!
       raise NotImplementedError
     end
