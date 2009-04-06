@@ -13,7 +13,7 @@ class Integer
   end
 end
 
-NUM_STATES = 32
+NUM_STATES = 64
 BITS = 16
 STATES = (1..NUM_STATES)
 ALPHABET = (0..1)
@@ -92,7 +92,7 @@ class Chromosome < GA::AbstractChromosome
 end
 
 puts "Beginning genetic search, please wait... "
-search = GA::Runner.new(Chromosome,100)
+search = GA::Runner.new(Chromosome,20)
 result = search.run 100 do |best,gen|
   puts "Generation #{gen}"
   p best
