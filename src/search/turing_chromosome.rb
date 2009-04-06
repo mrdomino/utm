@@ -70,7 +70,7 @@ class Chromosome < GA::AbstractChromosome
   # randomly. In other words, the probability of mutation needs to be accounted
   # for inside the method
   def mutate!
-    if rand < 0.3
+    if rand < 0.15
       index = rand(@data.length-1)
       @data[index], @data[index+1] = @data[index+1], @data[index]
     end
