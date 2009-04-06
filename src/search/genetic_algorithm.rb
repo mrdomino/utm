@@ -43,7 +43,7 @@ module GA
 
     def selection count
       (1..count).collect do
-        (1..@selection_n).collect {@population.choice}.sort[-1]
+        (1..@selection_n).collect {@population.choice}.max
       end
     end
 
@@ -60,7 +60,7 @@ module GA
       raise NotImplementedError
     end
 
-    def initialize
+    def initialize(data = nil)
       raise NotImplementedError
     end
 
