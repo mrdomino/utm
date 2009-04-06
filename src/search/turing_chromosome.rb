@@ -92,7 +92,7 @@ class Chromosome < GA::AbstractChromosome
 end
 
 puts "Beginning genetic search, please wait... "
-search = GA::Runner.new(Chromosome,20)
+search = GA::Runner.new(Chromosome,100)
 result = search.run 100 do |best,gen|
   puts "Generation #{gen}"
   p best
