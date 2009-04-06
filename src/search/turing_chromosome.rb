@@ -1,5 +1,5 @@
 require "rubygems"
-require "ai4r/genetic_algorithm/genetic_algorithm"
+require "search/genetic_algorithm"
 require "turing"
 require "zlib"
 
@@ -18,24 +18,30 @@ BITS = 16
 STATES = (1..NUM_STATES)
 ALPHABET = (0..1)
 
-class Ai4r::GeneticAlgorithm::Chromosome
+class Chromosome < GA::AbstractChromosome
+
+  attr_accessor :data
 
   # Initializes an individual solution (chromosome) for the initial
   # population. Usually the chromosome is generated randomly, but you can
   # use some problem domain knowledge, to generate better initial solutions.
-  def self.seed
-    result = ""
-    STATES.each do |st|
-      ALPHABET.each do |let|
-        # Next state
-        result << (1..NUM_STATES).choice.to_b.join.rjust(BITS,'0')
-        # Letter to write
-        result << ALPHABET.choice.to_s
-        # Move to the right?
-        result << (0..1).choice.to_s
+  def initialize(data = nil)
+    if not data
+      result = ""
+      STATES.each do |st|
+        ALPHABET.each do |let|
+          # Next state
+          result << (1..NUM_STATES).choice.to_b.join.rjust(BITS,'0')
+          # Letter to write
+          result << ALPHABET.choice.to_s
+          # Move to the right?
+          result << (0..1).choice.to_s
+        end
       end
+      @data = result
+    else
+      @data = data
     end
-    return new result
   end
   #fitness, reproduce, and mutate
 
@@ -46,7 +52,7 @@ class Ai4r::GeneticAlgorithm::Chromosome
   # Optimal chromosomes, or at least chromosomes which are more optimal,
   # are allowed to breed and mix their datasets by any of several techniques,
   # producing a new generation that will (hopefully) be even better.
-  def fitness
+  def compute_fitness
     tm = TM.decode STATES,BITS,@data
     tm.run(gen_tape 40) do |count,tape,halt|
       if count > 5000 or halt
@@ -63,13 +69,10 @@ class Ai4r::GeneticAlgorithm::Chromosome
   # Calling the mutate function should "probably" slightly change a chromosome
   # randomly. In other words, the probability of mutation needs to be accounted
   # for inside the method
-  def self.mutate(chromosome)
-    if chromosome.normalized_fitness && rand < ((1 - chromosome.normalized_fitness) * 0.3)
-      data = chromosome.data
-      index = rand(data.length-1)
-      data[index], data[index+1] = data[index+1], data[index]
-      chromosome.data = data
-      @fitness = nil
+  def mutate!
+    if rand < 0.3
+      index = rand(@data.length-1)
+      @data[index], @data[index+1] = @data[index+1], @data[index]
     end
   end
 
@@ -88,27 +91,9 @@ class Ai4r::GeneticAlgorithm::Chromosome
 
 end
 
-# monkeypatched to take a block
-class Ai4r::GeneticAlgorithm::GeneticSearch
-  def run
-    generate_initial_population                    #Generate initial population 
-    @max_generation.times do |i|
-      yield(best_chromosome,i) if block_given?
-      selected_to_breed = selection                #Evaluates current population 
-      offsprings = reproduction selected_to_breed  #Generate the population for this new generation
-      replace_worst_ranked offsprings
-    end
-    return best_chromosome
-  end
-end
-
-
-#Ai4r::GeneticAlgorithm::Chromosome.set_cost_matrix(data_set)
-
 puts "Beginning genetic search, please wait... "
-#800 population size, 100 generations
-search = Ai4r::GeneticAlgorithm::GeneticSearch.new(800, 100)
-result = search.run do |best,gen|
+search = GA::Runner.new(Chromosome,100)
+result = search.run 100 do |best,gen|
   puts "Generation #{gen}"
   p best
 end

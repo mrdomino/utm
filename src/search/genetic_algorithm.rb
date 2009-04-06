@@ -1,40 +1,84 @@
-class GA
+module GA
 
-  attr_accessor :selection_n, :pop
+  class Runner
 
-  def initialize cls,count
-    @chromosome = cls
-    @selection_n = 2
-    @count = count
-    @generation = 0
+    attr_accessor :selection_n, :population
 
-    @pop = create_population @count
-  end
+    def initialize cls,count
+      @chromosome_class = cls
+      @selection_n = 2
+      @count = count
+      @generation = 0
 
-  def create_population n
-    (1..n).collect {@chromosome.seed}
-  end
-
-  def run steps
-    steps.times do
-      iterate
-      yield if block_given?
+      @population = create_population @count
     end
+
+    def create_population n
+      (1..n).collect {@chromosome_class.new}
+    end
+
+    def run steps
+      steps.times do
+        iterate
+        yield best_chromosome,@generation if block_given?
+      end
+    end
+
+    def best_chromosome
+      @population.max
+    end
+
+    def iterate
+      @generation += 1
+      @population.each &:nuke_fitness!
+      selected = selection(@count/2)
+      offspring = (1..@count/2).collect do
+        x = @chromosome_class.reproduce(selected.choice,selected.choice)
+        x.mutate!
+        x
+      end
+      @population = selected + offspring
+    end
+
+    def selection count
+      (1..count).collect do
+        (1..@selection_n).collect {@population.choice}.sort[-1]
+      end
+    end
+
   end
 
-  def iterate
-    @generation += 1
-    selected = selection(@count/2)
-    offspring = (1..@count/2).collect do
-      @chromosome.reproduce(selected.choice,selected.choice).mutate
-    end
-    @population = selected + offspring
-  end
 
-  def selection count
-    (1..count).collect do
-      (1..@selection_n).collect {@pop.choice}.sort_by(&:fitness)[-1]
+  class AbstractChromosome
+
+    def mutate!
+      raise NotImplementedError
     end
+
+    def self.reproduce a,b
+      raise NotImplementedError
+    end
+
+    def initialize
+      raise NotImplementedError
+    end
+
+    def <=> it
+      fitness <=> it.fitness
+    end
+
+    def compute_fitness
+      raise NotImplementedError
+    end
+
+    def fitness
+      @fitness || (@fitness = compute_fitness)
+    end
+
+    def nuke_fitness!
+      @fitness = nil
+    end
+
   end
 
 end
