@@ -24,6 +24,9 @@ ALPHABET = (0..1)
 
 class Chromosome < GA::AbstractChromosome
 
+  @@starting_tape = gen_tape 40
+  p @@starting_tape
+
   attr_accessor :data
 
   # Initializes an individual solution (chromosome) for the initial
@@ -58,7 +61,7 @@ class Chromosome < GA::AbstractChromosome
   # producing a new generation that will (hopefully) be even better.
   def compute_fitness
     tm = TM.decode STATES,BITS,@data
-    tm.run(gen_tape 40) do |count,tape,halt|
+    tm.run @@starting_tape do |count,tape,halt|
       if count > 5000 or halt
         return Zlib::Deflate.deflate(tape.to_s).length
       end
