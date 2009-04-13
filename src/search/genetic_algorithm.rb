@@ -88,6 +88,10 @@ module GA
       @fitness || (@fitness = compute_fitness)
     end
 
+    def fitness= value
+      @fitness = value
+    end
+
     # Clears the memoized fitness. Gets called before each round of
     # reproductions.
     def nuke_fitness!
