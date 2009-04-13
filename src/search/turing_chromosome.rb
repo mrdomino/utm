@@ -95,20 +95,41 @@ class Chromosome < GA::AbstractChromosome
 
 end
 
+
+def save_generation db,population,generation
+  db.transaction do
+    print "Inserting generation #{generation}..."
+    population.each_with_index do |obj,i|
+      db.execute 'insert into genomes (pop_index,generation,fitness,encoding) values (?,?,?,?)', i,generation,obj.fitness,obj.data
+    end
+    puts "done"
+  end
+end
+
+
 puts "Connecting to database"
 db = SQLite3::Database.new "viz/db/development.sqlite3"
 db.type_translation = true # jesus fucking christ
 
-puts "Beginning genetic search, please wait... "
-search = GA::Runner.new(Chromosome,100)
-result = search.run 100 do |guy|
-  # Put guy's population in the database.
-  db.transaction do
-    puts "Inserting generation #{guy.generation}"
-    guy.population.each_with_index do |obj,i|
-      db.execute 'insert into genomes (pop_index,generation,fitness,encoding) values (?,?,?,?)', i,guy.generation,obj.fitness,obj.data
-    end
+max_gen = db.get_first_value 'select max(generation) from genomes'
+if max_gen
+  max_gen = max_gen.to_i
+  puts "Continuing from generation #{max_gen}"
+  search = GA::Runner.new(Chromosome,100)
+  search.generation = max_gen
+  search.population = db.execute('select fitness,encoding from genomes where generation = ?', max_gen).collect do |obj|
+    x = Chromosome.new obj[1]
+    x.fitness = obj[0]
+    x
   end
+else
+  puts "Beginning genetic search, please wait... "
+  search = GA::Runner.new(Chromosome,100)
+  save_generation db,search.population,search.generation
+end
+
+result = search.run 100 do |guy|
+  save_generation db,guy.population,guy.generation
 end
 
 tm = TM.decode STATES,BITS,result.data
