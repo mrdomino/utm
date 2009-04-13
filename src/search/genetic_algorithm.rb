@@ -2,7 +2,7 @@ module GA
 
   class Runner
 
-    attr_accessor :selection_n, :population
+    attr_accessor :selection_n, :population, :generation
 
     def initialize cls,count
       @chromosome_class = cls
@@ -20,7 +20,7 @@ module GA
     def run steps
       steps.times do
         iterate
-        yield best_chromosome,@generation if block_given?
+        yield self if block_given?
       end
     end
 

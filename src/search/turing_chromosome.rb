@@ -1,7 +1,11 @@
+#!/usr/bin/env ruby
+
 require "rubygems"
+require "sqlite3"
+require "zlib"
+
 require "search/genetic_algorithm"
 require "turing"
-require "zlib"
 
 class Integer
   def to_b
@@ -91,11 +95,20 @@ class Chromosome < GA::AbstractChromosome
 
 end
 
+puts "Connecting to database"
+db = SQLite3::Database.new "viz/db/development.sqlite3"
+db.type_translation = true # jesus fucking christ
+
 puts "Beginning genetic search, please wait... "
 search = GA::Runner.new(Chromosome,100)
-result = search.run 100 do |best,gen|
-  puts "Generation #{gen}"
-  p best
+result = search.run 100 do |guy|
+  # Put guy's population in the database.
+  db.transaction do
+    puts "Inserting generation #{guy.generation}"
+    guy.population.each_with_index do |obj,i|
+      db.execute 'insert into genomes (pop_index,generation,fitness,encoding) values (?,?,?,?)', i,guy.generation,obj.fitness,obj.data
+    end
+  end
 end
 
 tm = TM.decode STATES,BITS,result.data
