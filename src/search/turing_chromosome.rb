@@ -17,7 +17,7 @@ class Integer
   end
 end
 
-NUM_STATES = 32
+NUM_STATES = 128
 BITS = 16
 STATES = (1..NUM_STATES)
 ALPHABET = (0..1)
@@ -87,35 +87,36 @@ def save_generation db,population,generation
   end
 end
 
+if $0 == __FILE__
+  puts "Connecting to database"
+  db = SQLite3::Database.new "viz/db/development.sqlite3"
+  db.type_translation = true # jesus fucking christ
 
-puts "Connecting to database"
-db = SQLite3::Database.new "viz/db/development.sqlite3"
-db.type_translation = true # jesus fucking christ
-
-max_gen = db.get_first_value 'select max(generation) from genomes'
-if max_gen
-  max_gen = max_gen.to_i
-  puts "Continuing from generation #{max_gen}"
-  search = GA::Runner.new(Chromosome,100)
-  search.generation = max_gen
-  search.population = db.execute('select fitness,encoding from genomes where generation = ?', max_gen).collect do |obj|
-    x = Chromosome.new obj[1]
-    x.fitness = obj[0]
-    x
+  max_gen = db.get_first_value 'select max(generation) from genomes'
+  if max_gen
+    max_gen = max_gen.to_i
+    puts "Continuing from generation #{max_gen}"
+    search = GA::Runner.new(Chromosome,100)
+    search.generation = max_gen
+    search.population = db.execute('select fitness,encoding from genomes where generation = ?', max_gen).collect do |obj|
+      x = Chromosome.new obj[1]
+      x.fitness = obj[0]
+      x
+    end
+  else
+    puts "Beginning genetic search, please wait... "
+    search = GA::Runner.new(Chromosome,100)
+    save_generation db,search.population,search.generation
   end
-else
-  puts "Beginning genetic search, please wait... "
-  search = GA::Runner.new(Chromosome,100)
-  save_generation db,search.population,search.generation
-end
 
-result = search.run 100 do |guy|
-  save_generation db,guy.population,guy.generation
-end
+  result = search.run 100 do |guy|
+    save_generation db,guy.population,guy.generation
+  end
 
-tm = TM.decode STATES,BITS,result.data
-tm.run(gen_tape 1) do |count,tape|
-  puts tape
-  break if count > 40
+  tm = TM.decode STATES,BITS,search.best_chromosome.data
+  tm.run(gen_tape 1) do |count,tape|
+    puts tape
+    break if count > 40
+  end
+  puts "Result fitness: #{result.fitness}"
 end
-puts "Result fitness: #{result.fitness}"
