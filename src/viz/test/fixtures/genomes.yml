@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  pop_index: 
+  generation: 
+  fitness: 
+  encoding: MyText
+
+two:
+  pop_index: 
+  generation: 
+  fitness: 
+  encoding: MyText

@@ -9,6 +9,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20090413174752) do
+
+  create_table "genomes", :force => true do |t|
+    t.integer  "pop_index"
+    t.integer  "generation"
+    t.float    "fitness"
+    t.text     "encoding"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
