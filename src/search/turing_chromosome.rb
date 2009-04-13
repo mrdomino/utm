@@ -29,9 +29,6 @@ class Chromosome < GA::AbstractChromosome
 
   attr_accessor :data
 
-  # Initializes an individual solution (chromosome) for the initial
-  # population. Usually the chromosome is generated randomly, but you can
-  # use some problem domain knowledge, to generate better initial solutions.
   def initialize(data = nil)
     if not data
       result = ""
@@ -50,15 +47,7 @@ class Chromosome < GA::AbstractChromosome
       @data = data
     end
   end
-  #fitness, reproduce, and mutate
 
-  # The fitness function quantifies the optimality of a solution
-  # (that is, a chromosome) in a genetic algorithm so that that particular
-  # chromosome may be ranked against all the other chromosomes.
-  #
-  # Optimal chromosomes, or at least chromosomes which are more optimal,
-  # are allowed to breed and mix their datasets by any of several techniques,
-  # producing a new generation that will (hopefully) be even better.
   def compute_fitness
     tm = TM.decode STATES,BITS,@data
     tm.run @@starting_tape do |count,tape,halt|
@@ -68,14 +57,6 @@ class Chromosome < GA::AbstractChromosome
     end
   end
 
-  # mutation is a function used to maintain genetic diversity from one
-  # generation of a population of chromosomes to the next. It is analogous 
-  # to biological mutation.
-  #
-  #
-  # Calling the mutate function should "probably" slightly change a chromosome
-  # randomly. In other words, the probability of mutation needs to be accounted
-  # for inside the method
   def mutate!
     if rand < 0.3
       index = rand(@data.length-1)
@@ -84,9 +65,6 @@ class Chromosome < GA::AbstractChromosome
   end
 
 
-  # Reproduction is used to vary the programming of a chromosome or
-  # chromosomes from one generation to the next. Takes two parents and
-  # returns a single child
   def self.reproduce(a, b)
     #Edge Recombination
     i = (0..(NUM_STATES*2-1)).choice * (BITS+2)
