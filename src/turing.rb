@@ -10,7 +10,7 @@ end
 class Tape
   def initialize alphabet,input
     @left = []
-    @right = input
+    @right = Array.new input
     @pointer = 0
     @alphabet = alphabet
     right!
