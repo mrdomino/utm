@@ -1,13 +1,10 @@
 class MachinesController < ApplicationController
   def index
-    params[:page] ||= 1
-    offset = (params[:page].to_i-1)*15
-    @machines = Genome.find(:all, :order => "fitness DESC",
-                            :limit => 15,
-                            :offset => offset)
-    numgenomes = Genome.count
-    numpages = (numgenomes/15.0).ceil
-    @pages = (1..numpages)
+    params[:top] = 25 unless params[:top] || params[:generation]
+    params[:generation] ?
+    @machines = Genome.find(:all, :order => "fitness DESC", :conditions => {:generation => params[:generation]}) :
+    @machines = Genome.find(:all, :order => "fitness DESC", :limit => params[:top])
+    @generations = Genome.maximum(:generation)
   end
 
   def show
