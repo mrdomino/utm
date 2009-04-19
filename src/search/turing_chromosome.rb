@@ -17,7 +17,7 @@ class Integer
   end
 end
 
-NUM_STATES = 32
+NUM_STATES = 128
 BITS = 16
 STATES = (1..NUM_STATES)
 ALPHABET = (0..1)
