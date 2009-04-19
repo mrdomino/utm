@@ -1,9 +1,9 @@
-require 'graphviz'
-require 'turing.rb'
+require 'turing'
+require 'search/turing_chromosome'
 class Genome < ActiveRecord::Base
   set_primary_key "pop_index"
   def graph
-    tm = TM.decode((1..128),16,encoding)
+    tm = TM.decode(STATES,BITS,encoding)
     tm.graph
   end
 end
