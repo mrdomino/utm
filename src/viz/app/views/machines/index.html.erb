@@ -1,0 +1,20 @@
+<% for page in @pages %>
+  <%= link_to page, :action => 'index', :page => page unless params[:page].to_i == page %>
+  <%= "<b>#{page}</b>" if params[:page].to_i == page %>
+<% end %>
+<table>
+  <tr>
+    <td>Generation</td>
+    <td>ID</td>
+    <td>Fitness</td>
+    <td>Encoding</td>
+  </tr>
+  <% for machine in @machines %>
+    <tr>
+      <td><%= machine.generation %></td>
+      <td><%= link_to machine.id, :action => :show, :id => machine.id %></td>
+      <td><%= machine.fitness %></td>
+      <td><%= machine.encoding %></td>
+    </tr>
+  <% end %>
+</table>

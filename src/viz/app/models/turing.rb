@@ -1,6 +1,11 @@
+require 'graphviz'
+
 class Range # monkeypatch
   def choice
     return rand(max-min+1) + min
+  end
+  def count
+    return to_a.length
   end
 end
 
@@ -105,6 +110,21 @@ class TM
         break
       end
     end
+  end
+  
+  def graph
+    graphtext = "digraph G{\n"
+    @table.each do |k,v|
+      currentstate = k[0];
+      currenttape = k[1];
+      color = k[1] == 1 ? "red" : "blue"
+      nextstate = v[0];
+      nexttape = v[1];
+      direction = v[2] == :left! ? "L" : "R";
+      graphtext += "#{k[0]}->#{v[0]} [color=#{color},label=\"#{v[1]},#{direction}\"];\n"
+    end
+    graphtext += "}"
+    
   end
 
 end
