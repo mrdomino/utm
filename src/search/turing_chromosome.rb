@@ -35,7 +35,7 @@ class Chromosome < GA::AbstractChromosome
       STATES.each do |st|
         ALPHABET.each do |let|
           # Next state
-          result << (1..NUM_STATES).choice.to_b.join.rjust(BITS,'0')
+          result << (0..NUM_STATES).choice.to_b.join.rjust(BITS,'0')
           # Letter to write
           result << ALPHABET.choice.to_s
           # Move to the right?
