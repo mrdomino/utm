@@ -17,11 +17,13 @@ class MachinesController < ApplicationController
   def graph
     id = params[:id].to_i
     graphtext = Genome.find(id).graph
-    unless File.exists?("machine#{id}.dot")
-      File.open("machine#{id}.dot", "w+") {|f| f.write(graphtext)}
-      @output = %x{"C:/Program Files/GraphViz2.22/bin/dot" -Tpdf machine#{id}.dot -o machine#{id}.pdf}
+    dotfile="/tmp/machine#{id}.dot"
+    pdffile="/tmp/machine#{id}.pdf"
+    unless File.exists?(dotfile)
+      File.open(dotfile, "w+") {|f| f.write(graphtext)}
+      @output = %x{dot -Tpdf #{dotfile} -o #{pdffile}}
     end
-    send_file("machine#{id}.pdf")
+    send_file(pdffile)
   end
 
 end
