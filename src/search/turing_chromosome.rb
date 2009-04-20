@@ -17,11 +17,7 @@ class Integer
   end
 end
 
-<<<<<<< HEAD:src/search/turing_chromosome.rb
 NUM_STATES = 64
-=======
-NUM_STATES = 128
->>>>>>> c22f9f7cee6b68cead92c2b7ab8f9d7b1d329efe:src/search/turing_chromosome.rb
 BITS = 16
 STATES = (1..NUM_STATES)
 ALPHABET = (0..1)
