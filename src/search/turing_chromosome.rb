@@ -111,10 +111,7 @@ if $0 == __FILE__
     save_generation db,search.population,search.generation
   end
 
-  result = search.run 100 do |guy|
+  result = search.run do |guy|
     save_generation db,guy.population,guy.generation
   end
-
-  tm = TM.decode STATES,BITS,search.best_chromosome.data
-  puts "Result fitness: #{tm.fitness}"
 end

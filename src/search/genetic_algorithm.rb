@@ -17,8 +17,8 @@ module GA
       (1..n).collect {@chromosome_class.new}
     end
 
-    def run steps
-      steps.times do
+    def run
+      loop do
         iterate
         yield self if block_given?
       end
