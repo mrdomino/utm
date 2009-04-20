@@ -1,0 +1,23 @@
+body
+{
+  font-family:verdana,arial,helvetica,sans-serif;
+  font-size: 13px;
+  background-color: #c0c0c0;
+  margin: 0px;
+}
+
+#main
+{
+  margin-left: 100px;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+  border-top: 1px solid transparent;
+  background-color: white;
+  padding-bottom: 75px;
+}
+
+#header, #content
+{
+  padding-left: 25px;
+  padding-bottom: 25px;
+}

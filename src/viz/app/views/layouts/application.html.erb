@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <title>Genetic UTM Search</title>
+    <%= stylesheet_link_tag 'style' %>
+  </head>
+  <body>
+    <div id = 'main'>
+    <div id = 'header'>
+      <h1>Genetic Algorithm UTM Search</h1>
+      <%= link_to 'Machines', :controller => 'machines' %>
+      <%= link_to 'Metrics', :controller => 'metrics' %>
+    </div>
+    <div id = 'content'>
+      <%= @content_for_layout %>
+    </div>
+    </div>
+  </body>
+</html>
