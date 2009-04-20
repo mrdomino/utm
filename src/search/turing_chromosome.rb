@@ -58,16 +58,10 @@ class Chromosome < GA::AbstractChromosome
   end
 
   def mutate!
-<<<<<<< HEAD:src/search/turing_chromosome.rb
     if rand < 0.15
-      index = rand(@data.length-1)
-      @data[index], @data[index+1] = @data[index+1], @data[index]
-=======
-    if rand(100) > 50
       (0..@data.length-2).select {rand(@data.length) < 4}.map do |index|
         @data[index], @data[index+1] = @data[index+1], @data[index]
       end
->>>>>>> c22f9f7cee6b68cead92c2b7ab8f9d7b1d329efe:src/search/turing_chromosome.rb
     end
   end
 
