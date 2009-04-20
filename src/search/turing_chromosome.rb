@@ -58,8 +58,7 @@ class Chromosome < GA::AbstractChromosome
   end
 
   def mutate!
-    if rand < 0.3
-      index = rand(@data.length-1)
+    (0..@data.length-2).select {rand(@data.length) < 16}.map do |index|
       @data[index], @data[index+1] = @data[index+1], @data[index]
     end
   end
@@ -114,9 +113,5 @@ if $0 == __FILE__
   end
 
   tm = TM.decode STATES,BITS,search.best_chromosome.data
-  tm.run(gen_tape 1) do |count,tape|
-    puts tape
-    break if count > 40
-  end
-  puts "Result fitness: #{result.fitness}"
+  puts "Result fitness: #{tm.fitness}"
 end
