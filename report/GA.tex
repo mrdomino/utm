@@ -25,14 +25,7 @@ The size of GENE\_LENGTH is required to be at least large enough to represent NU
 	\label{tab:example_TM}
 \end{table}
 
-Take the example encoding: '111110101001100101000110', with NUM\_STATES=3 and GENE\_LENGTH=4. This is broken up into segments which are GENE\_LENGTH bits long: 1111,1010,1001,1001,0100,0110. Each gene segment then represents a single entry in a state transition table. The resulting state transition table can be seen in Table \ref{tab:example_TM}. An alternate, visual representation of the turing machine is shown in Figure \ref{fig:example_TM}
-
-\begin{figure}[!hbp]
-	\centering 
-	\includegraphics[width=.8\textwidth]{images/example_TM}
-	\caption{State transition diagram for notional 3-state TM.}
-	\label{fig:example_TM}
-\end{figure}
+Take the example encoding: '111110101001100101000110', with NUM\_STATES=3 and GENE\_LENGTH=4. This is broken up into segments which are GENE\_LENGTH bits long: 1111,1010,1001,1001,0100,0110. Each gene segment then represents a single entry in a state transition table. The resulting state transition table can be seen in Table \ref{tab:example_TM}. 
 
 It should be noted that all TM using this encoding assume that the 0 state is the halt state. It is not required that any TM utilize the halt state at all. The example TM above did not use the halt state. 
 
@@ -56,7 +49,3 @@ The first option tests the outcome of an optimization where each generation is b
 
 \subsection{TM Genome Mutation}
 The mutation operator in a Genetic algorithm maintains can help to maintain genetic diversity among the population. It also serves to introduce new genes to the population. Without that injection of new genes the only possibly results would have to consist of some combination of the genes that were created at random as part of the initial population. The mutation algorithm applied here used a bit swapping method where a certain percentage of bits in the encoding as swapped with their neighboring bits. Using this method both the probability that a genome will be mutated and the frequency of bit swaps along the encoding can be varried to adjust the performance of the genetic algorithm optimziation. For this work, the probability of mutation was set to XX\% and the frequency of bit swaps was XX\%.
-
-\subsection{Results Visualization}
-
-The results visualization system provides a graphical summary of the progression of an optimziation. It was written using Ruby On Rails and takes advantage of two graphical plotting tools: gcharts and graphviz.
