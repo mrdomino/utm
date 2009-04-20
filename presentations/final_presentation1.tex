@@ -19,17 +19,6 @@
 	\tableofcontents
 }
 
-\section{Team Members and Roles}
-\frame{
-	\frametitle{Team Members and Roles}
-	\begin{itemize}
-		\item {\bf Steve Dee:} Database management, fitness evaluation algorithm
-		\item {\bf Justin Gray:} Genetic Algorithm Design
-		\item {\bf Josh Lee:} Turing Machine modeling
-		\item {\bf Neil Sandburg:} Web visualization 
-	\end{itemize}
-}
-
 \section{Overall Objectives}
 \frame{
 	\frametitle{Overall Objectives}
@@ -38,10 +27,6 @@
 		\begin{column}{.75\textwidth}
 			\begin{itemize}
 				\item Test the possibility of discovering a set of Universal Turing Machines via a Genetic Algorithm optimization
-					\begin{itemize} 
-						\item Short optimization with a limited run time to test the algorithm
-						\item Long optimization with a much longer run time
-					\end{itemize}
 				\item Create a web application to publish the results of the optimization
 					\begin{itemize}
 						\item Real-time link to database being populated by optimization results
@@ -124,7 +109,7 @@
 	30\% chance of mutation occurring with bit swapping method: \\
 	Example: '111110101001100101000110', 3 State Turing Machine 
 	\begin{itemize}
-		\item 111110{\bf 10}10011001{\bf 01}000{\bf 11}0
+		\item 111110 {\bf 10} 10011001 {\bf 01} 000 {\bf 11} 0
 		\item 111110 {\bf 01} 10011001 {\bf 10} 000 {\bf 11} 0
 		\item 111110011001100110000110
 	\end{itemize}
@@ -161,10 +146,24 @@
 		\end{column}
 	\end{columns}
 }
+\frame{
+	\frametitle{Parent Selection and Reproduction}
+	{\bf }
+}
 
 \section{Web Visualization App}
-\subsection{Optimization Metrics}
-\subsection{Turing Machine Visualization}
-
-
+\frame{
+	\frametitle{Web Visualization App}
+	The purpose of this web app is to provide a user interface that allows for the examination of optimization results
+	\begin{enumerate}
+		\item Visualization of optimization progress: Using the Gcharts services to create graphs of relevant generational statistics:
+			\begin{itemize}
+				\item Average fitness
+				\item Maximum fitness
+				\item Std. Deviation of fitness
+			\end{itemize}
+		\item Visualization of individual Turing Machine: '111110101001100101000110'
+	\end{enumerate}
+	\includegraphics[width = .6\textwidth]{images/example_TM}
+}
 \end{document}
