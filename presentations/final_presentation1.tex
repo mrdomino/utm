@@ -5,6 +5,8 @@
 
 \usepackage{url}
 
+\usepackage{color}
+
 \title{The Search for a Universal Turing Machine}
 \author{Steven Dee, Justin Gray, Josh Lee, Neil Sandberg}
 \date{\today}
@@ -148,7 +150,22 @@
 }
 \frame{
 	\frametitle{Parent Selection and Reproduction}
-	{\bf }
+	{\bf Reproduction Method: Crossover}
+	\begin{itemize}
+		\item Using a simple two-point cross over method
+		\item cross overs only occur at gene boundaries in encoding
+	\end{itemize}
+	Example: \textcolor{red}{'111110101001100101000110'} and \textcolor{blue}{'101001011111101101001100'}
+	\begin{enumerate}
+		\item randomly pick cross over point: between 2nd gene and 4th gene
+		\item cut parent encodings: 
+			\begin{itemize}
+				\item \textcolor{red}{1111---101010011001---01000110}
+				\item \textcolor{blue}{1010---010111111011---01001100}
+			\end{itemize}
+		\item splice child from parent cuts: \textcolor{blue}{1010}---\textcolor{red}{101010011001}---\textcolor{blue}{01001100}
+		\item final child: 101010101001100101001100
+	\end{enumerate}
 }
 
 \section{Web Visualization App}
