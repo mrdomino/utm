@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090413174752) do
+ActiveRecord::Schema.define(:version => 20090420011622) do
 
   create_table "genomes", :force => true do |t|
     t.integer  "pop_index"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(:version => 20090413174752) do
     t.text     "encoding"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "dataset"
   end
 
 end
