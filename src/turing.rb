@@ -2,12 +2,15 @@ class Range # monkeypatch
   def choice
     return rand(max-min+1) + min
   end
+  def count
+    return max-min+1
+  end
 end
 
 class Tape
   def initialize alphabet,input
     @left = []
-    @right = input
+    @right = Array.new input
     @pointer = 0
     @alphabet = alphabet
     right!
@@ -74,8 +77,7 @@ class TM
       alphabet.each do |read|
         index = gene_length * (2*(i-1) + read)
         gene = string[index,gene_length]
-        next_state = eval("0b" + gene[0,bits])
-        next_state = states.count if next_state+1 > states.count
+        next_state = eval("0b" + gene[0,bits]) % states.count
         letter = gene[bits..bits].to_i
         dir = DIRECTIONS[gene[bits+1..bits+1].to_i]
         table[[i,read]] = [next_state, letter, dir]
@@ -105,6 +107,20 @@ class TM
         break
       end
     end
+  end
+
+  def graph
+    graphtext = "digraph G{\n"
+    @table.each do |k,v|
+      currentstate = k[0];
+      currenttape = k[1];
+      color = k[1] == 1 ? "red" : "blue"
+      nextstate = v[0];
+      nexttape = v[1];
+      direction = v[2] == :left! ? "L" : "R";
+      graphtext += "#{k[0]}->#{v[0]} [color=#{color},label=\"#{v[1]},#{direction}\"];\n"
+    end
+    graphtext += "}"
   end
 
 end

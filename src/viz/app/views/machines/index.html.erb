@@ -1,0 +1,21 @@
+<%= link_to 'Top 25', :action => 'index', :top => 25 unless params[:top].to_i == 25%>
+<%= "<b>Top 25</b>" if params[:top].to_i == 25 %>
+ Generation:
+<% for generation in (0..@generations) %>
+  <%= link_to generation, :action => 'index', :generation => generation unless params[:generation] and params[:generation].to_i == generation %>
+  <%= "<b>#{generation}</b>" if params[:generation] and params[:generation].to_i == generation %>
+<% end %>
+<table>
+  <tr>
+    <td>Generation</td>
+    <td>ID</td>
+    <td>Fitness</td>
+  </tr>
+  <% for machine in @machines %>
+    <tr>
+      <td><%= machine.generation %></td>
+      <td><%= link_to machine.id, :action => :show, :id => machine.id %></td>
+      <td><%= machine.fitness %></td>
+    </tr>
+  <% end %>
+</table>

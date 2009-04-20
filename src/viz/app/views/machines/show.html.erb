@@ -1,0 +1,19 @@
+<h1>Machine <%= @machine.id %> details</h1>
+<table width = '600'>
+  <tr>
+    <td>Generation</td>
+    <td><%= @machine.generation %></td>
+  </tr>
+  <tr>
+    <td>Fitness</td>
+    <td><%= @machine.fitness %>
+  </tr>
+  <tr>
+    <td valign = 'top'>Encoding</td>
+    <td><%= @machine.encoding %></td>
+  </tr>
+  <tr>
+    <td style = 'width:600px'>Graph</td>
+    <td><%= link_to 'Download PDF', :action => :graph, :id => @machine.id %></td>
+  </tr>
+</table>
