@@ -58,8 +58,10 @@ class Chromosome < GA::AbstractChromosome
   end
 
   def mutate!
-    (0..@data.length-2).select {rand(@data.length) < 16}.map do |index|
-      @data[index], @data[index+1] = @data[index+1], @data[index]
+    if rand(100) > 50
+      (0..@data.length-2).select {rand(@data.length) < 4}.map do |index|
+        @data[index], @data[index+1] = @data[index+1], @data[index]
+      end
     end
   end
 
@@ -79,6 +81,7 @@ end
 def save_generation db,population,generation
   db.transaction do
     print "Inserting generation #{generation}..."
+    STDOUT.flush
     population.each_with_index do |obj,i|
       db.execute 'insert into genomes (pop_index,generation,fitness,encoding) values (?,?,?,?)', i,generation,obj.fitness,obj.data
     end
