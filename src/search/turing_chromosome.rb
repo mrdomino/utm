@@ -21,6 +21,7 @@ NUM_STATES = 64
 BITS = 16
 STATES = (1..NUM_STATES)
 ALPHABET = (0..1)
+SEARCH_TYPE = 1
 
 class Chromosome < GA::AbstractChromosome
 
@@ -83,7 +84,7 @@ def save_generation db,population,generation
     print "Inserting generation #{generation}..."
     STDOUT.flush
     population.each_with_index do |obj,i|
-      db.execute 'insert into genomes (pop_index,generation,fitness,encoding) values (?,?,?,?)', i,generation,obj.fitness,obj.data
+      db.execute 'insert into genomes (pop_index,generation,fitness,encoding,search_type) values (?,?,?,?,?)', i,generation,obj.fitness,obj.data,SEARCH_TYPE
     end
     puts "done"
   end
