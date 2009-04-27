@@ -21,7 +21,7 @@ NUM_STATES = 64
 BITS = 16
 STATES = (1..NUM_STATES)
 ALPHABET = (0..1)
-SEARCH_TYPE = 1
+SEARCH_TYPE = 2
 
 class Chromosome < GA::AbstractChromosome
 
