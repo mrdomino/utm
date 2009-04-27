@@ -27,6 +27,23 @@ class Chromosome < GA::AbstractChromosome
 
   @@starting_tape = gen_tape 40
   p @@starting_tape
+  
+  def pst
+    p @@starting_tape
+  end 
+  
+  def regen_statring_tape mode=0
+    if mode == 0
+      @@starting_tape = gen_tape 40
+    end
+    if mode == 1
+      #mutate the current starting_tape
+      @@starting_tape = "0"*40
+    end
+    if mode == 2
+      @@starting_tape.collect! {|t| rand < 0.05 ? (1-t) : t}
+  	end
+  end
 
   attr_accessor :data
 
@@ -51,6 +68,7 @@ class Chromosome < GA::AbstractChromosome
 
   def compute_fitness
     tm = TM.decode STATES,BITS,@data
+    #three options each modify starting tape
     tm.run @@starting_tape do |count,tape,halt|
       if count > 5000 or halt
         return Zlib::Deflate.deflate(tape.to_s).length

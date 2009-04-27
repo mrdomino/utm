@@ -145,7 +145,8 @@ def gen_TM num_states
 end
 
 def gen_tape size
-  (1..size).collect { (0..1).choice }
+  	(1..size).collect { (0..1).choice }
+  
 end
 
 if $0 == __FILE__

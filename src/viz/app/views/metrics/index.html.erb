@@ -1,9 +1,10 @@
 <%= javascript_include_tag :all %>
-<%= periodically_call_remote(:url => {:action => :chart, :id => 0}, :frequency => 5)%>
-<%= periodically_call_remote(:url => {:action => :chart, :id => 1}, :frequency => 5)%>
-<%= periodically_call_remote(:url => {:action => :chart, :id => 2}, :frequency => 5)%>
+<script type='text/javascript'>
+	new Ajax.PeriodicalUpdater('chart0', 'chart/0', {frequency: 5, onSuccess: function(request) {eval(request.responseText)}});
+</script>
 <h1>Metrics</h1>
 <p>Here, we present measurements of our progress, in the form of charts. Enjoy.</p>
 <div id = 'charts'>
 <%= render :partial => 'charts' %>
 </div>
+/Users/Justin/School Files/CASE/EECS600-Ruby/utm2/src/viz/app/controllers/application.rb
