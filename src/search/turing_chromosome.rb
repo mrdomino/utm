@@ -21,7 +21,7 @@ NUM_STATES = 64
 BITS = 16
 STATES = (1..NUM_STATES)
 ALPHABET = (0..1)
-SEARCH_TYPE = 0
+SEARCH_TYPE = 1
 
 class Chromosome < GA::AbstractChromosome
 
@@ -113,7 +113,7 @@ if $0 == __FILE__
   db = SQLite3::Database.new "viz/db/development.sqlite3"
   db.type_translation = true # jesus fucking christ
 
-  max_gen = db.get_first_value 'select max(generation) from genomes'
+  max_gen = db.get_first_value "select max(generation) from genomes where search_type == #{SEARCH_TYPE}"
   if max_gen
     max_gen = max_gen.to_i
     puts "Continuing from generation #{max_gen}"
