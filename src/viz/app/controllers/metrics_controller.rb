@@ -2,7 +2,7 @@ class MetricsController < ApplicationController
   def index
     @gmf_graph_url= generate_line_chart(Genome.connection.select_all("select generation, search_type, MAX(fitness) from genomes group by generation, search_type"), "Generation Max Fitness", ["Generation", "Fitness"])
     @gaf_graph_url = generate_line_chart(Genome.connection.select_all("select generation, search_type, AVG(fitness) from genomes group by generation, search_type"), "Generation Average Fitness", ["Generation", "Fitness"],2)
-#    @sdv_graph_url = generate_line_chart(Genome.connection.select_all("select generation, stdev(fitness) from genomes group by generation"), "Generation STDEV of Fitness", ["Generation", "STDEV"])
+    #@sdv_graph_url = generate_line_chart(Genome.connection.select_all("select generation, stdev(fitness) from genomes group by generation"), "Generation STDEV of Fitness", ["Generation", "STDEV"])
     render :partial => 'charts', :layout => false if request.xhr?
   end
 

@@ -21,7 +21,7 @@ NUM_STATES = 64
 BITS = 16
 STATES = (1..NUM_STATES)
 ALPHABET = (0..1)
-SEARCH_TYPE = 2
+SEARCH_TYPE = 1
 
 class Chromosome < GA::AbstractChromosome
 
@@ -38,7 +38,7 @@ class Chromosome < GA::AbstractChromosome
     end
     if SEARCH_TYPE == 1
       #mutate the current starting_tape
-      @@starting_tape = "0"*40
+      @@starting_tape = (0..39).collect {(0..1).choice}
     end
     if SEARCH_TYPE == 2
       @@starting_tape.collect! {|t| rand < 0.05 ? (1-t) : t}
@@ -69,6 +69,7 @@ class Chromosome < GA::AbstractChromosome
   def compute_fitness
     tm = TM.decode STATES,BITS,@data
     #three options each modify starting tape
+    regen_statring_tape
     tm.run @@starting_tape do |count,tape,halt|
       if count > 5000 or halt
         return Zlib::Deflate.deflate(tape.to_s).length
@@ -132,5 +133,9 @@ if $0 == __FILE__
 
   result = search.run do |guy|
     save_generation db,guy.population,guy.generation
+    
+    if guy.generation >= 100 
+      exit
+    end
   end
 end
