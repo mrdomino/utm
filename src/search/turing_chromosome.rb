@@ -21,7 +21,7 @@ NUM_STATES = 64
 BITS = 16
 STATES = (1..NUM_STATES)
 ALPHABET = (0..1)
-SEARCH_TYPE = 1
+SEARCH_TYPE = 0
 
 class Chromosome < GA::AbstractChromosome
 
@@ -32,15 +32,15 @@ class Chromosome < GA::AbstractChromosome
     p @@starting_tape
   end 
   
-  def regen_statring_tape mode=0
-    if mode == 0
+  def regen_statring_tape
+    if SEARCH_TYPE == 0
       @@starting_tape = gen_tape 40
     end
-    if mode == 1
+    if SEARCH_TYPE == 1
       #mutate the current starting_tape
       @@starting_tape = "0"*40
     end
-    if mode == 2
+    if SEARCH_TYPE == 2
       @@starting_tape.collect! {|t| rand < 0.05 ? (1-t) : t}
   	end
   end
