@@ -1,7 +1,7 @@
 <%= javascript_include_tag :all %>
 <script type='text/javascript'>
-	new Ajax.PeriodicalUpdater('chart0', 'chart/0', {frequency: 5});
-	new Ajax.PeriodicalUpdater('chart1', 'chart/1', {frequency: 5});
+	new Ajax.PeriodicalUpdater('chart0', 'metrics/chart/0', {frequency: 5, method: 'get'});
+	new Ajax.PeriodicalUpdater('chart1', 'metrics/chart/1', {frequency: 5, method: 'get'});
 </script>
 <h1>Metrics</h1>
 <p>Here, we present measurements of our progress, in the form of charts. Enjoy.</p>

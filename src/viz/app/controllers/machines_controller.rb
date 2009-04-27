@@ -1,9 +1,10 @@
 class MachinesController < ApplicationController
   def index
     params[:top] = 25 unless params[:top] || params[:generation]
+    params[:pop] ||= 0
     params[:generation] ?
-    @machines = Genome.find(:all, :order => "fitness DESC", :conditions => {:generation => params[:generation]}) :
-    @machines = Genome.find(:all, :order => "fitness DESC", :limit => params[:top])
+    @machines = Genome.find(:all, :order => "fitness DESC", :conditions => {:generation => params[:generation], :search_type => params[:pop]}) :
+    @machines = Genome.find(:all, :order => "fitness DESC", :conditions => {:search_type => params[:pop]}, :limit => params[:top])
     @generations = Genome.maximum(:generation)
   end
 

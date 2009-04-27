@@ -1,8 +1,15 @@
-<%= link_to 'Top 25', :action => 'index', :top => 25 unless params[:top].to_i == 25%>
+<%= link_to 'Top 25', :action => 'index', :pop => params[:pop], :top => 25 unless params[:top].to_i == 25%>
+Population: 
+<% for i in (0..2) %>
+	<%= link_to i, :action => 'index', :pop => i if params[:pop].to_i != i-%>
+	<%= "<b>#{i}</b>" if params[:pop].to_i == i %>
+<% end %>
+<br/>
 <%= "<b>Top 25</b>" if params[:top].to_i == 25 %>
+
  Generation:
 <% for generation in (0..@generations) %>
-  <%= link_to generation, :action => 'index', :generation => generation unless params[:generation] and params[:generation].to_i == generation %>
+  <%= link_to generation, :action => 'index', :pop => params[:pop], :generation => generation unless params[:generation] and params[:generation].to_i == generation %>
   <%= "<b>#{generation}</b>" if params[:generation] and params[:generation].to_i == generation %>
 <% end %>
 <table>

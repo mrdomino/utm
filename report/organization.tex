@@ -1,16 +1,7 @@
 \subsection{Project division}
 
-A first priority will be to define a standard format for representing a Turing Machine; this format will be used pervasively in the entire application. From there, several independent modules fall naturally out of the problem specification:
+The project was devided into two main parts: The genetic algorithm optimization and the results visualization. The work load was split evenly between team members, but each section was managed by lead. Josh Lee led on the genetic algorithm implementation and Neil Sandberg led the web visualization implementation. The genetic algorithm implementation required the larger development efford, and Josh Lee and Steven Dee focused their efforts on this development, with algorithm design support provided by Justin Gray. Neil developed the initial web visualation tool and Justin Gray contributed to the final data representation design and implementation. 
 
-\begin{itemize}
-\item Execution: Given a TM and its input, returning successive states of the tape at points in the future. (Josh Lee)
-\item Evaluation: Determining a heuristic for universality, ranking TMs, and producing stochastic test data. (Justin Gray, Steven Dee)
-\item Breeding and mutating: The GA's selection and combination processes. (Neil Sandberg)
-\item Web based visualization tool, using Ruby on Rails. (Justin Gray, Neil Sandberg)
-\end{itemize}
+Each of the two parts was developed in parallel, using a database as the data bridge between them. By using a simple database design that was fixed early on, the task of integration of the two parts was greatly simplified. 
 
-It is our expectation that, since these modules have well-defined interfaces and can be tested independently of each other, we will be able to work on them individually or in pairs, depending on the size of the task. The responsible parties are listed next to each module
-
-\subsection{Communication}
-
-We will use a mailing list to coordinate communication for the group. Justin Gray will serve as the point of contact for the group as a whole. Github will be used as a source repository to enable distributed collaboration.
+All work was performed collaboratively using a github source repository. The project is stored in an open source repository at http://github.com/mrdomino/utm/. The repository was used to store all files regarding the implementation of the genetic algorithm and the web visualization tool.
