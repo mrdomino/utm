@@ -7,6 +7,12 @@
 \usepackage{graphicx}
 
 \usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\bottomfraction}{.85}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.75}
+
+
 
 \title{Universal Turing Machine Search\\
 \Large {\sc Eecs} 600: Ruby on Rails}
@@ -33,13 +39,16 @@ Neil Sandberg \\
 \section{Organizational Structure}
 \input organization
 
-\section{Genetic Algorithm Optimization}
+\section{Genetic Algorithm Design}
 \input GA
 
-\section{Web Visualization Tool}
+\section{Web Visualization Tool Design}
 \input viz
 
-\section{Optimization Results}
+\section{Known Universal Turing Machines}
+\input known_machines
+
+\section{Results}
 \input results
 
 \section {Conclusion}

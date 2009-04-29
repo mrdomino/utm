@@ -1,5 +1,5 @@
 NAME= report
-TEXSRCS= abstract.tex introduction.tex GA.tex viz.tex milestones.tex organization.tex risk.tex sources.bib
+TEXSRCS= abstract.tex introduction.tex GA.tex viz.tex milestones.tex organization.tex risk.tex sources.bib known_machines.tex
 BIBTEXSRCS= sources.bib
 
 all: report.pdf

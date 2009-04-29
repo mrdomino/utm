@@ -39,5 +39,5 @@ def generate_line_chart(dataset, title, axes, stloc=1)
   maxy2 = datay2.max
   maxx = [maxx0,maxx1,maxx2].max
   maxy = [maxy0,maxy1,maxy2].max
-  "http://chart.apis.google.com/chart?chs=300x200&cht=lxy&chd=t:#{datax0.join(",")}|#{datay0.join(",")}|#{datax1.join(",")}|#{datay1.join(",")}|#{datax2.join(",")}|#{datay2.join(",")}&chds=0,#{maxx.ceil},0,#{maxy.ceil},0,#{maxx.ceil},0,#{maxy.ceil},0,#{maxx.ceil},0,#{maxy.ceil}&chtt=#{title}&chxt=x,x,y,y&chxl=0:|0|#{maxx.ceil}|1:|#{axes[0]}|2:|0|#{maxy.ceil}|3:|#{axes[1]}&chxp=1,50|3,50&chco=FF0000,00FF00,0000FF"
+  "http://chart.apis.google.com/chart?chs=300x200&cht=lxy&chd=t:#{datax0.join(",")}|#{datay0.join(",")}|#{datax1.join(",")}|#{datay1.join(",")}|#{datax2.join(",")}|#{datay2.join(",")}&chds=0,#{maxx.ceil},30,#{maxy.ceil},0,#{maxx.ceil},30,#{maxy.ceil},0,#{maxx.ceil},30,#{maxy.ceil}&chtt=#{title}&chxt=x,x,y,y&chxl=0:|0|#{maxx.ceil}|1:|#{axes[0]}|2:|0|#{maxy.ceil}|3:|#{axes[1]}&chxp=1,50|3,50&chco=FF0000,00FF00,0000FF"
 end

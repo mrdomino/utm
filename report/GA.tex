@@ -37,6 +37,15 @@ There is not simple test for that can be applied to a TM to determine if it is i
 
 Instead of testing directly for qualities of candidate TMs that are similar to those of a UTM, a more simple fitness evaluation was used, which follows more directly with the stated hypothesis. TMs are scored based on the complexity of their output. This complexity is measured by applying a compression algorithm to the output string of the turing machine, and then using the resulting size of the compressed data as the fitness of the TM. The DEFLATE compression algorithm was selected because it is a lossless compression algorithm and is part of the ruby standard library.
 
+Using this method will provide higher fitness scores for more random outputs. However, a side effect of using the DEFLATE algorithm is that a small size advantage is given to simple repeating patterns. For example, take the following three cases: 
+\begin{itemize}
+	\item 0000000000000000000000000 --- fitness: 11
+	\item 1010101010101010101010101 --- fitness: 12
+	\item 1011011010010101101010100 --- fitness: 20
+\end{itemize}
+
+The first case is as simple as it gets, just one character. The second case is a simple repeating pattern of "01". The second case holds a small advantage over the first, but compared to the score of the very random third case (12 vs 20) the slight increase in not significant enough to invalidate the fitness evaluation method.
+
 Since the output of a TM is dependent on the input given to it, the outcome of this fitness evaluation is highly dependent on the input given to each candidate TM as well. Three interesting input types were evaluated: 
 
 \begin{enumerate}
@@ -45,10 +54,12 @@ Since the output of a TM is dependent on the input given to it, the outcome of t
 	\item Input string with some mutation between generations
 \end{enumerate}
 
-The first option tests the outcome of an optimization where each generation is being given effectively the same exact test as all the others. TMs which are good at making complex output for this specific input will thrive. The second option basically generated a random new test for each generation, and only TMs that can produce complex output for arbitrary input will thrive. These TMs could be considered very adaptable. The third option presents a hybrid approach to the previous two; here each successive generation is operating on an input string which is similar to the last (how similar depends on the mutation rate) but not identical. Over a large number of generations however the input string is effectively appears random. For this research, the when using the third input string option, a mutation rate of 50\% was used. 
+The first option tests the outcome of an optimization where each generation is being given effectively the same exact test as all the others. TMs which are good at making complex output for this specific input will thrive. The second option basically generated a random new test for each generation, and only TMs that can produce complex output for arbitrary input will thrive. These TMs could be considered very adaptable. The third option presents a hybrid approach to the previous two; here each successive generation is operating on an input string which is similar to the last (how similar depends on the mutation rate) but not identical. Over a large number of generations however the input string is effectively appears random. For this research, the when using the third input string option, a mutation rate of 15\% was used. 
+
+
 
 \subsection{Genome Mutation}
-The mutation operator in a GA serves to introduce new genes to the population. Without that injection of new genes the only possible results would have to consist of some combination of the genes that were created at random as part of the initial population. The mutation algorithm applied here used a bit swapping method where a certain percentage of bits in the encoding are swapped with their neighboring bits. Using this method both the probability that a genome will be mutated and the frequency of bit swaps along the encoding can be varied to adjust the performance of the genetic algorithm optimization. For this work, the probability of mutation was set to XX\% and the frequency of bit swaps was XX\%. 
+The mutation operator in a GA serves to introduce new genes to the population. Without that injection of new genes the only possible results would have to consist of some combination of the genes that were created at random as part of the initial population. The mutation algorithm applied here used a bit swapping method where a certain percentage of bits in the encoding are swapped with their neighboring bits. Using this method both the probability that a genome will be mutated and the frequency of bit swaps along the encoding can be varied to adjust the performance of the genetic algorithm optimization. For this work, the probability of mutation was set to 30\% and the frequency of bit swaps was 10\%. 
 
 Keeping these parameters set to higher values ensures a constant and high rate of introduction of new genes into the population. This much churning of the gene pool also helps to prevent too much homogeneity from developing in the gene pool. 
 
